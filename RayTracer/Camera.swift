@@ -44,8 +44,8 @@ class PerspectiveCamera : Camera {
     
     func generateRay(point point: vector_float2) -> Ray {
         let distance = 1/(tan(fieldOfView/2))
-        let ray = vector_float3(point.x * 1, 0, 0) + vector_float3(0, 1 * self.aspect * point.y, 0) + vector_float3(0, 0, distance * 1)
-        let direction = normalize(ray)
+        let ray = (point.x * self.horizontal) + (self.aspect * point.y * self.up) + (distance * self.direction)
+        let direction = (ray)
         return Ray(origin: self.center, direction: direction)
     }
 }

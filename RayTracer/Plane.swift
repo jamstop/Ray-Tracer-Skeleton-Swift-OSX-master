@@ -36,8 +36,13 @@ class Plane: ObjectType, CustomStringConvertible {
     func intersect(ray r: Ray, tMin: Float, hit h: Hit) -> Bool {
         if vector_dot(normal, r.direction) != 0 {
             let t = (-1) * (d + vector_dot(normal, r.origin)) / vector_dot(normal, r.direction)
-            h.set(t: t, material: material, normal: normal)
-            return true
+            if t > tMin {
+                h.set(t: t, material: material, normal: normal)
+                return true
+            }
+            else {
+                return false
+            }
         }
 
         
