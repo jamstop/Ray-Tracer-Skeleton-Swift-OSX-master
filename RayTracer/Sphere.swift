@@ -34,7 +34,7 @@ class Sphere: ObjectType, CustomStringConvertible {
     }
     
     func intersect(ray r: Ray, tMin: Float, hit h: Hit) -> Bool {
-        fatalError("Not yet implemented!")
+//        fatalError("Not yet implemented!")
         
         return false
     }

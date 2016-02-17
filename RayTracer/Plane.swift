@@ -34,7 +34,12 @@ class Plane: ObjectType, CustomStringConvertible {
     }
     
     func intersect(ray r: Ray, tMin: Float, hit h: Hit) -> Bool {
-        fatalError("Not yet implemented!")
+        if vector_dot(normal, r.direction) != 0 {
+            let t = (-1) * (d + vector_dot(normal, r.origin)) / vector_dot(normal, r.direction)
+            h.set(t: t, material: material, normal: normal)
+            return true
+        }
+
         
         return false
     }

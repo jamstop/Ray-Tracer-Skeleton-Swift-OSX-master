@@ -34,17 +34,18 @@ class PerspectiveCamera : Camera {
     internal let aspect: Float
     
     init(center: vector_float3, direction: vector_float3, up: vector_float3, fieldOfView: Float, w: Int, h: Int) {
-        fatalError("Not yet implemented!")
-        self.center = vector_float3()
-        self.direction = vector_float3()
-        self.horizontal = vector_float3()
-        self.up = vector_float3()
-        self.fieldOfView = 0
-        self.aspect = 0
+        self.center = center
+        self.direction = normalize(direction)
+        self.horizontal = normalize(cross(self.direction, up))
+        self.up = normalize(cross(self.horizontal, self.direction))
+        self.fieldOfView = fieldOfView
+        self.aspect = Float(h) / Float(w)
     }
     
     func generateRay(point point: vector_float2) -> Ray {
-        fatalError("Not yet implemented!")
-        return Ray(origin: vector_float3(), direction: vector_float3())
+        let distance = 1/(tan(fieldOfView/2))
+        let ray = vector_float3(point.x * 1, 0, 0) + vector_float3(0, 1 * self.aspect * point.y, 0) + vector_float3(0, 0, distance * 1)
+        let direction = normalize(ray)
+        return Ray(origin: self.center, direction: direction)
     }
 }

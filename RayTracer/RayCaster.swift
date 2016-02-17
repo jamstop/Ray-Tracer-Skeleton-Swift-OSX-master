@@ -61,7 +61,10 @@ class RayCaster: Renderer {
     func render(saveImage saveImage: Bool, saveDepth: Bool, saveNormal: Bool) {
         windowController.updateStatusLabel("Ray casting", scene: sceneFile)
         
-        fatalError("Not yet implemented!")
+        for data in image.data {
+            raycastPixel(Int(data.x), Int(data.y))
+        }
+        image.generateDepthNSImage()
         
         // release images and scene to free up memory -- will need to be
         // recreated if rendedered again!
@@ -72,7 +75,13 @@ class RayCaster: Renderer {
     }
     
     func raycastPixel(i: Int, _ j: Int) {
-        fatalError("Not yet implemented!")
+        let camera = scene.camera
+        let ray = camera.generateRay(point: vector_float2(Float(i), Float(j)))
+        let hit = Hit()
+        if scene.group.intersect(ray: ray, tMin: camera.tMin, hit: hit) {
+            setDepthPixel(x: i, y: j, hit: hit)
+        }
+        
     }
     
     func shade(ray ray: Ray, hit: Hit) -> vector_float3 {
