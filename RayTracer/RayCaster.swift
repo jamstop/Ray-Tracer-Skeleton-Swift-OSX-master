@@ -62,7 +62,9 @@ class RayCaster: Renderer {
         windowController.updateStatusLabel("Ray casting", scene: sceneFile)
         
         for data in depthImage.data {
-            raycastPixel(Int(data.x), Int(data.y))
+            let x = data.x - 1
+            let y = data.y + 1
+            raycastPixel(Int(x), Int(y))
         }
         processDepth(saveImage: saveImage)
         
